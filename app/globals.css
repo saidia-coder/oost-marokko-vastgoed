@@ -1,0 +1,30 @@
+:root {
+  --sand: #F4EEDF;
+  --sand-deep: #EAE1CB;
+  --ink: #211D16;
+  --ink-soft: #5B564A;
+  --navy: #163A52;
+  --navy-deep: #0E2739;
+  --orange: #DB6A1E;
+  --orange-deep: #A84F16;
+  --olive: #6E7F52;
+  --olive-deep: #4E5B3A;
+  --white: #FFFFFF;
+  --line: #D9D0B8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--sand);
+  color: var(--ink);
+  font-family: 'Inter', sans-serif;
+}
+
+input:focus {
+  outline: 2px solid var(--navy);
+  outline-offset: 1px;
+}
