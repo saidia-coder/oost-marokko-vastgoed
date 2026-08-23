@@ -13,7 +13,8 @@ function formatPrice(n) {
 
 function imageUrl(storagePath) {
   if (!storagePath || !SUPABASE_URL) return null;
-  return `${SUPABASE_URL}/storage/v1/object/public/property-images/${storagePath}`;
+  const encoded = storagePath.split("/").map(encodeURIComponent).join("/");
+  return `${SUPABASE_URL}/storage/v1/object/public/property-images/${encoded}`;
 }
 
 function sortedImages(images) {
