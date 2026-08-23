@@ -5,19 +5,53 @@ import { MapPin, Search, BedDouble, Bath, Maximize2, X, MessageCircle, Waves, Tr
 
 const REGION_ICONS = { saidia: Waves, berkane: TreePine, oujda: Building2 };
 const REGION_COLORS = { saidia: "var(--navy)", berkane: "var(--orange)", oujda: "var(--olive-deep)" };
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL;
 
 function formatPrice(n) {
   return new Intl.NumberFormat("nl-NL", { style: "currency", currency: "EUR", maximumFractionDigits: 0 }).format(n);
 }
 
+function imageUrl(storagePath) {
+  if (!storagePath || !SUPABASE_URL) return null;
+  return `${SUPABASE_URL}/storage/v1/object/public/property-images/${storagePath}`;
+}
+
+function sortedImages(images) {
+  if (!images || images.length === 0) return [];
+  return [...images].sort((a, b) => {
+    if (a.is_cover && !b.is_cover) return -1;
+    if (!a.is_cover && b.is_cover) return 1;
+    return (a.sort_order || 0) - (b.sort_order || 0);
+  });
+}
+
+function coverImageUrl(images) {
+  const sorted = sortedImages(images);
+  return sorted.length > 0 ? imageUrl(sorted[0].storage_path) : null;
+}
+
 function PropertyCard({ p, region, onOpen }) {
   const color = REGION_COLORS[p.region_id] || "var(--navy)";
+  const cover = coverImageUrl(p.property_images);
   return (
     <div
       onClick={() => onOpen(p)}
       style={{ background: "var(--white)", border: "1px solid var(--line)", borderRadius: "4px", cursor: "pointer", overflow: "hidden" }}
     >
-      <div style={{ height: "150px", background: `linear-gradient(135deg, ${color}, var(--ink))`, position: "relative", display: "flex", alignItems: "flex-end", padding: "12px" }}>
+      <div
+        style={{
+          height: "150px",
+          position: "relative",
+          display: "flex",
+          alignItems: "flex-end",
+          padding: "12px",
+          backgroundImage: cover
+            ? `linear-gradient(180deg, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.55) 100%), url(${cover})`
+            : `linear-gradient(135deg, ${color}, var(--ink))`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
         <span style={{ position: "absolute", top: 12, left: 12, fontSize: "11px", letterSpacing: "0.06em", textTransform: "uppercase", background: "var(--white)", color: "var(--ink)", padding: "4px 8px", borderRadius: "2px", fontWeight: 600 }}>
           {p.status === "nieuwbouw" ? "Nieuwbouw" : "Bestaand"}
         </span>
@@ -43,10 +77,23 @@ function PropertyCard({ p, region, onOpen }) {
 function DetailPanel({ p, region, onClose }) {
   if (!p) return null;
   const color = REGION_COLORS[p.region_id] || "var(--navy)";
+  const images = sortedImages(p.property_images);
+  const cover = images.length > 0 ? imageUrl(images[0].storage_path) : null;
   return (
     <div style={{ position: "fixed", inset: 0, background: "rgba(20,17,10,0.55)", zIndex: 50, display: "flex", justifyContent: "flex-end" }} onClick={onClose}>
       <div onClick={(e) => e.stopPropagation()} style={{ width: "min(480px, 100%)", height: "100%", background: "var(--sand)", overflowY: "auto" }}>
-        <div style={{ height: "220px", background: `linear-gradient(135deg, ${color}, var(--ink))`, position: "relative", padding: "16px" }}>
+        <div
+          style={{
+            height: "220px",
+            position: "relative",
+            padding: "16px",
+            backgroundImage: cover
+              ? `linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 100%), url(${cover})`
+              : `linear-gradient(135deg, ${color}, var(--ink))`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+          }}
+        >
           <button onClick={onClose} style={{ background: "var(--white)", border: "none", borderRadius: "50%", width: "32px", height: "32px", cursor: "pointer" }}>
             <X size={18} />
           </button>
@@ -57,6 +104,20 @@ function DetailPanel({ p, region, onClose }) {
             <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: "26px", fontWeight: 600, color: "var(--white)", margin: 0 }}>{p.title}</h2>
           </div>
         </div>
+
+        {images.length > 1 && (
+          <div style={{ display: "flex", gap: "6px", padding: "12px 20px 0", overflowX: "auto" }}>
+            {images.slice(1).map((img, i) => (
+              <img
+                key={i}
+                src={imageUrl(img.storage_path)}
+                alt=""
+                style={{ width: "64px", height: "64px", objectFit: "cover", borderRadius: "3px", border: "1px solid var(--line)", flexShrink: 0 }}
+              />
+            ))}
+          </div>
+        )}
+
         <div style={{ padding: "20px" }}>
           <div style={{ fontFamily: "'Fraunces', serif", fontSize: "28px", fontWeight: 600, marginBottom: "16px" }}>{formatPrice(p.price_eur)}</div>
           <div style={{ display: "flex", gap: "16px", padding: "14px 0", borderTop: "1px solid var(--line)", borderBottom: "1px solid var(--line)", marginBottom: "16px", fontFamily: "'IBM Plex Mono', monospace", fontSize: "13px", color: "var(--ink-soft)" }}>
