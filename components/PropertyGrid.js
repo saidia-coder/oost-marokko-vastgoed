@@ -55,7 +55,7 @@ function PropertyCard({ p, region, onOpen }) {
           backgroundPosition: "center",
         }}
       >
-        <span style={{ position: "absolute", top: 12, left: 12, fontSize: "11px", letterSpacing: "0.06em", textTransform: "uppercase", background: "var(--white)", color: "var(--ink)", padding: "4px 8px", borderRadius: "2px", fontWeight: 600 }}>
+        <span style={{ position: "absolute", top: 12, left: 12, fontSize: "11px", letterSpacing: "0.06em", textTransform: "uppercase", background: p.status === "nieuwbouw" ? "var(--orange)" : "var(--white)", color: p.status === "nieuwbouw" ? "var(--white)" : "var(--ink)", padding: "4px 8px", borderRadius: "2px", fontWeight: 600 }}>
           {p.status === "nieuwbouw" ? "Nieuwbouw" : "Bestaand"}
         </span>
         <span style={{ color: "var(--white)", fontFamily: "'Fraunces', serif", fontSize: "22px", fontWeight: 600 }}>
@@ -164,78 +164,87 @@ export default function PropertyGrid({ properties, regions, fetchError }) {
 
   return (
     <div style={{ minHeight: "100vh" }}>
-      <header style={{ borderBottom: "1px solid var(--line)", padding: "18px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
-        <div style={{ fontFamily: "'Fraunces', serif", fontSize: "20px", fontWeight: 700 }}>
+      <header style={{ background: "var(--navy-deep)", padding: "18px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
+        <div style={{ fontFamily: "'Fraunces', serif", fontSize: "20px", fontWeight: 700, color: "var(--white)" }}>
           Oost·Marokko <span style={{ color: "var(--orange)" }}>Vastgoed</span>
         </div>
         <a
           href={`https://wa.me/${WHATSAPP_NUMBER}`}
           target="_blank"
           rel="noopener noreferrer"
-          style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", fontWeight: 600, color: "var(--olive-deep)", textDecoration: "none" }}
+          style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", fontWeight: 600, color: "var(--orange)", textDecoration: "none" }}
         >
           <PhoneCall size={15} /> +{WHATSAPP_NUMBER.replace(/(\d{2})(\d{1})(\d{8})/, "$1 $2 $3")}
         </a>
       </header>
 
-      <section style={{ padding: "56px 24px 32px", maxWidth: "960px", margin: "0 auto" }}>
-        <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--olive)", marginBottom: "14px" }}>
-          Kust tot binnenland · Oost-Marokko
-        </p>
-        <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: "42px", fontWeight: 600, lineHeight: 1.1, margin: "0 0 16px", maxWidth: "620px" }}>
-          Vastgoed langs de corridor Saidia — Berkane — Oujda
-        </h1>
+      <section
+        style={{
+          position: "relative",
+          padding: "72px 24px 40px",
+          backgroundImage: `linear-gradient(180deg, rgba(14,39,57,0.55) 0%, rgba(14,39,57,0.88) 60%, var(--navy-deep) 100%), url(${imageUrl("villa 1 saidia.avif")})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      >
+        <div style={{ maxWidth: "960px", margin: "0 auto" }}>
+          <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--orange)", marginBottom: "14px" }}>
+            Kust tot binnenland · Oost-Marokko
+          </p>
+          <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: "44px", fontWeight: 600, lineHeight: 1.1, margin: "0 0 16px", maxWidth: "620px", color: "var(--white)" }}>
+            Vastgoed langs de corridor Saidia — Berkane — Oujda
+          </h1>
 
-        {fetchError && (
-          <div style={{ padding: "12px 16px", background: "#FBEAEA", border: "1px solid #E0A9A9", borderRadius: "4px", color: "#7A2020", fontSize: "13px", marginBottom: "20px" }}>
-            Kan geen verbinding maken met de database: {fetchError}. Controleer de omgevingsvariabelen (NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY).
-          </div>
-        )}
-
-        <div style={{ display: "flex", background: "var(--white)", border: "1px solid var(--line)", borderRadius: "4px", padding: "4px" }}>
-          <div style={{ display: "flex", alignItems: "center", flex: 1, padding: "0 12px", gap: "8px" }}>
-            <Search size={16} color="var(--ink-soft)" />
-            <input
-              placeholder="Zoek op woning, bijv. 'villa' of 'penthouse'"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              style={{ border: "none", background: "transparent", flex: 1, padding: "10px 0", fontSize: "14px" }}
-            />
-          </div>
-        </div>
-
-        <div style={{ marginTop: "28px" }}>
-          <div style={{ display: "flex", height: "6px", borderRadius: "3px", overflow: "hidden", marginBottom: "14px" }}>
-            <div style={{ flex: 1, background: "var(--navy)" }} />
-            <div style={{ flex: 1, background: "var(--orange)" }} />
-            <div style={{ flex: 1, background: "var(--olive-deep)" }} />
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "12px" }}>
-            <div
-              onClick={() => setActiveRegion("all")}
-              style={{ padding: "12px 14px", borderRadius: "3px", cursor: "pointer", border: `1px solid ${activeRegion === "all" ? "var(--ink)" : "var(--line)"}`, background: activeRegion === "all" ? "var(--ink)" : "var(--white)" }}
-            >
-              <div style={{ fontSize: "13px", fontWeight: 600, color: activeRegion === "all" ? "var(--white)" : "var(--ink)" }}>Volledig aanbod</div>
-              <div style={{ fontSize: "12px", color: activeRegion === "all" ? "var(--sand)" : "var(--ink-soft)" }}>{properties.length} woningen</div>
+          {fetchError && (
+            <div style={{ padding: "12px 16px", background: "#FBEAEA", border: "1px solid #E0A9A9", borderRadius: "4px", color: "#7A2020", fontSize: "13px", marginBottom: "20px" }}>
+              Kan geen verbinding maken met de database: {fetchError}. Controleer de omgevingsvariabelen (NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY).
             </div>
-            {regions.map((r) => {
-              const Icon = REGION_ICONS[r.id] || MapPin;
-              const active = activeRegion === r.id;
-              const count = properties.filter((p) => p.region_id === r.id).length;
-              const color = REGION_COLORS[r.id] || "var(--navy)";
-              return (
-                <div
-                  key={r.id}
-                  onClick={() => setActiveRegion(r.id)}
-                  style={{ padding: "12px 14px", borderRadius: "3px", cursor: "pointer", border: `1px solid ${active ? color : "var(--line)"}`, background: active ? color : "var(--white)" }}
-                >
-                  <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", fontWeight: 600, color: active ? "var(--white)" : "var(--ink)" }}>
-                    <Icon size={14} /> {r.label}
+          )}
+
+          <div style={{ display: "flex", background: "rgba(255,255,255,0.95)", borderRadius: "4px", padding: "4px", boxShadow: "0 8px 24px rgba(0,0,0,0.25)" }}>
+            <div style={{ display: "flex", alignItems: "center", flex: 1, padding: "0 12px", gap: "8px" }}>
+              <Search size={16} color="var(--ink-soft)" />
+              <input
+                placeholder="Zoek op woning, bijv. 'villa' of 'penthouse'"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                style={{ border: "none", background: "transparent", flex: 1, padding: "10px 0", fontSize: "14px" }}
+              />
+            </div>
+          </div>
+
+          <div style={{ marginTop: "28px" }}>
+            <div style={{ display: "flex", height: "6px", borderRadius: "3px", overflow: "hidden", marginBottom: "14px" }}>
+              <div style={{ flex: 1, background: "var(--orange)" }} />
+              <div style={{ flex: 2, background: "var(--navy)" }} />
+              <div style={{ flex: 1, background: "var(--orange)" }} />
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "12px" }}>
+              <div
+                onClick={() => setActiveRegion("all")}
+                style={{ padding: "12px 14px", borderRadius: "3px", cursor: "pointer", border: `1px solid ${activeRegion === "all" ? "var(--orange)" : "rgba(255,255,255,0.3)"}`, background: activeRegion === "all" ? "var(--orange)" : "rgba(255,255,255,0.08)" }}
+              >
+                <div style={{ fontSize: "13px", fontWeight: 600, color: "var(--white)" }}>Volledig aanbod</div>
+                <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.75)" }}>{properties.length} woningen</div>
+              </div>
+              {regions.map((r) => {
+                const Icon = REGION_ICONS[r.id] || MapPin;
+                const active = activeRegion === r.id;
+                const count = properties.filter((p) => p.region_id === r.id).length;
+                return (
+                  <div
+                    key={r.id}
+                    onClick={() => setActiveRegion(r.id)}
+                    style={{ padding: "12px 14px", borderRadius: "3px", cursor: "pointer", border: `1px solid ${active ? "var(--orange)" : "rgba(255,255,255,0.3)"}`, background: active ? "var(--orange)" : "rgba(255,255,255,0.08)" }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", fontWeight: 600, color: "var(--white)" }}>
+                      <Icon size={14} /> {r.label}
+                    </div>
+                    <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.75)", marginTop: "2px" }}>{r.tagline} · {count}</div>
                   </div>
-                  <div style={{ fontSize: "12px", color: active ? "var(--sand)" : "var(--ink-soft)", marginTop: "2px" }}>{r.tagline} · {count}</div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
