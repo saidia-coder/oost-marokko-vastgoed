@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState, useMemo } from "react";
-import { MapPin, Search, BedDouble, Bath, Maximize2, X, MessageCircle, Waves, TreePine, Building2, ArrowUpRight } from "lucide-react";
+import { MapPin, Search, BedDouble, Bath, Maximize2, X, MessageCircle, Waves, TreePine, Building2, ArrowUpRight, Users, FileCheck, Handshake, PhoneCall } from "lucide-react";
+
+const WHATSAPP_NUMBER = "31614729973";
 
 const REGION_ICONS = { saidia: Waves, berkane: TreePine, oujda: Building2 };
 const REGION_COLORS = { saidia: "var(--navy)", berkane: "var(--orange)", oujda: "var(--olive-deep)" };
@@ -162,10 +164,18 @@ export default function PropertyGrid({ properties, regions, fetchError }) {
 
   return (
     <div style={{ minHeight: "100vh" }}>
-      <header style={{ borderBottom: "1px solid var(--line)", padding: "18px 24px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      <header style={{ borderBottom: "1px solid var(--line)", padding: "18px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
         <div style={{ fontFamily: "'Fraunces', serif", fontSize: "20px", fontWeight: 700 }}>
           Oost·Marokko <span style={{ color: "var(--orange)" }}>Vastgoed</span>
         </div>
+        <a
+          href={`https://wa.me/${WHATSAPP_NUMBER}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", fontWeight: 600, color: "var(--olive-deep)", textDecoration: "none" }}
+        >
+          <PhoneCall size={15} /> +{WHATSAPP_NUMBER.replace(/(\d{2})(\d{1})(\d{8})/, "$1 $2 $3")}
+        </a>
       </header>
 
       <section style={{ padding: "56px 24px 32px", maxWidth: "960px", margin: "0 auto" }}>
@@ -259,6 +269,51 @@ export default function PropertyGrid({ properties, regions, fetchError }) {
             ))}
           </div>
         )}
+      </section>
+
+      <section style={{ background: "var(--sand-deep)", padding: "56px 24px" }}>
+        <div style={{ maxWidth: "960px", margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "48px", alignItems: "start" }}>
+          <div>
+            <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--olive)", marginBottom: "12px" }}>
+              Over ons
+            </p>
+            <h2 style={{ fontFamily: "'Fraunces', serif", fontSize: "28px", fontWeight: 600, margin: "0 0 16px", lineHeight: 1.2 }}>
+              Vastgoed in eigen streek, met kennis van de markt ter plekke
+            </h2>
+            <p style={{ color: "var(--ink-soft)", fontSize: "15px", lineHeight: 1.7 }}>
+              Oost-Marokko Vastgoed richt zich specifiek op de corridor Saidia — Berkane — Oujda,
+              voor Marokkanen in Europa die investeren of terugkeren naar hun geboortestreek. Wij kennen
+              de lokale ontwikkelaars en makelaars persoonlijk, spreken de taal van beide kanten van de
+              transactie, en begeleiden je op afstand net zo zorgvuldig als wanneer je zelf ter plekke zou zijn.
+            </p>
+          </div>
+          <div>
+            <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--olive)", marginBottom: "12px" }}>
+              Hoe het werkt
+            </p>
+            <div style={{ display: "flex", flexDirection: "column", gap: "18px" }}>
+              {[
+                { icon: MessageCircle, title: "Contact & wensen", text: "Je neemt contact op via WhatsApp, wij bespreken budget, regio en type woning." },
+                { icon: Users, title: "Bezichtiging", text: "Fysiek of via videobezichtiging bekijk je de woningen die passen." },
+                { icon: FileCheck, title: "Aankoopbegeleiding", text: "Wij begeleiden je bij het contact met de notaris en het aankoopproces." },
+                { icon: Handshake, title: "Overdracht", text: "Sleuteloverdracht en nazorg, ook als je zelf niet in Marokko aanwezig bent." },
+              ].map((step, i) => {
+                const Icon = step.icon;
+                return (
+                  <div key={i} style={{ display: "flex", gap: "14px", alignItems: "flex-start" }}>
+                    <div style={{ width: "32px", height: "32px", borderRadius: "50%", background: "var(--white)", border: "1px solid var(--line)", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                      <Icon size={15} color="var(--olive-deep)" />
+                    </div>
+                    <div>
+                      <div style={{ fontSize: "14px", fontWeight: 600, marginBottom: "2px" }}>{step.title}</div>
+                      <div style={{ fontSize: "13px", color: "var(--ink-soft)", lineHeight: 1.5 }}>{step.text}</div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
       </section>
 
       <section style={{ background: "var(--navy-deep)", padding: "48px 24px" }}>
