@@ -178,15 +178,7 @@ export default function PropertyGrid({ properties, regions, fetchError }) {
         </a>
       </header>
 
-      <section
-        style={{
-          position: "relative",
-          padding: "72px 24px 40px",
-          backgroundImage: `linear-gradient(180deg, rgba(14,39,57,0.55) 0%, rgba(14,39,57,0.88) 60%, var(--navy-deep) 100%), url(/hero.jpg)`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
+      <section style={{ background: "var(--navy-deep)", padding: "56px 24px 40px" }}>
         <div style={{ maxWidth: "960px", margin: "0 auto" }}>
           <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--orange)", marginBottom: "14px" }}>
             Kust tot binnenland · Oost-Marokko
@@ -248,6 +240,15 @@ export default function PropertyGrid({ properties, regions, fetchError }) {
           </div>
         </div>
       </section>
+
+      <section
+        style={{
+          height: "440px",
+          backgroundImage: "url(/hero.jpg)",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
 
       <section style={{ maxWidth: "960px", margin: "0 auto", padding: "0 24px" }}>
         <div style={{ display: "flex", gap: "8px", flexWrap: "wrap", paddingBottom: "20px", borderBottom: "1px solid var(--line)" }}>
