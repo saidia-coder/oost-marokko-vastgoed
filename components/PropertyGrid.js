@@ -164,8 +164,8 @@ export default function PropertyGrid({ properties, regions, fetchError }) {
 
   return (
     <div style={{ minHeight: "100vh" }}>
-      <header style={{ background: "var(--navy-deep)", padding: "18px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px" }}>
-        <div style={{ fontFamily: "'Fraunces', serif", fontSize: "20px", fontWeight: 700, color: "var(--white)" }}>
+      <header style={{ background: "var(--sand-deep)", padding: "18px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px", borderBottom: "1px solid var(--line)" }}>
+        <div style={{ fontFamily: "'Fraunces', serif", fontSize: "20px", fontWeight: 700, color: "var(--ink)" }}>
           Oost·Marokko <span style={{ color: "var(--orange)" }}>Vastgoed</span>
         </div>
         <a
@@ -178,12 +178,12 @@ export default function PropertyGrid({ properties, regions, fetchError }) {
         </a>
       </header>
 
-      <section style={{ background: "var(--navy-deep)", padding: "56px 24px 40px" }}>
+      <section style={{ background: "var(--sand-deep)", padding: "56px 24px 40px" }}>
         <div style={{ maxWidth: "960px", margin: "0 auto" }}>
           <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--orange)", marginBottom: "14px" }}>
             Kust tot binnenland · Oost-Marokko
           </p>
-          <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: "44px", fontWeight: 600, lineHeight: 1.1, margin: "0 0 16px", maxWidth: "620px", color: "var(--white)" }}>
+          <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: "44px", fontWeight: 600, lineHeight: 1.1, margin: "0 0 16px", maxWidth: "620px", color: "var(--ink)" }}>
             Vastgoed langs de corridor Saidia — Berkane — Oujda
           </h1>
 
@@ -214,10 +214,10 @@ export default function PropertyGrid({ properties, regions, fetchError }) {
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(180px, 1fr))", gap: "12px" }}>
               <div
                 onClick={() => setActiveRegion("all")}
-                style={{ padding: "12px 14px", borderRadius: "3px", cursor: "pointer", border: `1px solid ${activeRegion === "all" ? "var(--orange)" : "rgba(255,255,255,0.3)"}`, background: activeRegion === "all" ? "var(--orange)" : "rgba(255,255,255,0.08)" }}
+                style={{ padding: "12px 14px", borderRadius: "3px", cursor: "pointer", border: `1px solid ${activeRegion === "all" ? "var(--orange)" : "var(--line)"}`, background: activeRegion === "all" ? "var(--orange)" : "var(--white)" }}
               >
-                <div style={{ fontSize: "13px", fontWeight: 600, color: "var(--white)" }}>Volledig aanbod</div>
-                <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.75)" }}>{properties.length} woningen</div>
+                <div style={{ fontSize: "13px", fontWeight: 600, color: activeRegion === "all" ? "var(--white)" : "var(--ink)" }}>Volledig aanbod</div>
+                <div style={{ fontSize: "12px", color: activeRegion === "all" ? "rgba(255,255,255,0.85)" : "var(--ink-soft)" }}>{properties.length} woningen</div>
               </div>
               {regions.map((r) => {
                 const Icon = REGION_ICONS[r.id] || MapPin;
@@ -227,12 +227,12 @@ export default function PropertyGrid({ properties, regions, fetchError }) {
                   <div
                     key={r.id}
                     onClick={() => setActiveRegion(r.id)}
-                    style={{ padding: "12px 14px", borderRadius: "3px", cursor: "pointer", border: `1px solid ${active ? "var(--orange)" : "rgba(255,255,255,0.3)"}`, background: active ? "var(--orange)" : "rgba(255,255,255,0.08)" }}
+                    style={{ padding: "12px 14px", borderRadius: "3px", cursor: "pointer", border: `1px solid ${active ? "var(--orange)" : "var(--line)"}`, background: active ? "var(--orange)" : "var(--white)" }}
                   >
-                    <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", fontWeight: 600, color: "var(--white)" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", fontWeight: 600, color: active ? "var(--white)" : "var(--ink)" }}>
                       <Icon size={14} /> {r.label}
                     </div>
-                    <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.75)", marginTop: "2px" }}>{r.tagline} · {count}</div>
+                    <div style={{ fontSize: "12px", color: active ? "rgba(255,255,255,0.85)" : "var(--ink-soft)", marginTop: "2px" }}>{r.tagline} · {count}</div>
                   </div>
                 );
               })}
@@ -326,13 +326,13 @@ export default function PropertyGrid({ properties, regions, fetchError }) {
         </div>
       </section>
 
-      <section style={{ background: "var(--navy-deep)", padding: "48px 24px" }}>
+      <section style={{ background: "var(--sand-deep)", padding: "48px 24px", borderTop: "1px solid var(--line)" }}>
         <div style={{ maxWidth: "960px", margin: "0 auto", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "20px" }}>
           <div>
-            <h3 style={{ fontFamily: "'Fraunces', serif", color: "var(--white)", fontSize: "24px", fontWeight: 600, margin: "0 0 8px" }}>
+            <h3 style={{ fontFamily: "'Fraunces', serif", color: "var(--ink)", fontSize: "24px", fontWeight: 600, margin: "0 0 8px" }}>
               Niet gevonden wat je zoekt?
             </h3>
-            <p style={{ color: "#B9C6CE", fontSize: "14px", margin: 0 }}>Wij horen als eerste van nieuwe projecten in Saidia, Berkane en Oujda.</p>
+            <p style={{ color: "var(--ink-soft)", fontSize: "14px", margin: 0 }}>Wij horen als eerste van nieuwe projecten in Saidia, Berkane en Oujda.</p>
           </div>
           <button style={{ background: "var(--orange)", color: "var(--white)", border: "none", padding: "13px 22px", borderRadius: "3px", fontWeight: 600, fontSize: "14px", display: "flex", alignItems: "center", gap: "6px", cursor: "pointer" }}>
             Neem contact op <ArrowUpRight size={16} />
