@@ -182,7 +182,7 @@ export default function PropertyGrid({ properties, regions, fetchError }) {
         style={{
           position: "relative",
           padding: "72px 24px 40px",
-          backgroundImage: `linear-gradient(180deg, rgba(14,39,57,0.55) 0%, rgba(14,39,57,0.88) 60%, var(--navy-deep) 100%), url(${imageUrl("villa 1 saidia.avif")})`,
+          backgroundImage: `linear-gradient(180deg, rgba(14,39,57,0.55) 0%, rgba(14,39,57,0.88) 60%, var(--navy-deep) 100%), url(/hero.jpg)`,
           backgroundSize: "cover",
           backgroundPosition: "center",
         }}
