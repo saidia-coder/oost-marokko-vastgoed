@@ -180,7 +180,7 @@ export default function PropertyGrid({ properties, regions, fetchError }) {
 
       <section style={{ background: "var(--sand-deep)", padding: "56px 24px 40px" }}>
         <div style={{ maxWidth: "960px", margin: "0 auto" }}>
-          <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--orange)", marginBottom: "14px" }}>
+          <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--orange)", marginBottom: "14px", fontWeight: 700 }}>
             Jouw droom, jouw plek, Marokko
           </p>
           <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: "44px", fontWeight: 600, lineHeight: 1.1, margin: "0 0 16px", maxWidth: "620px", color: "var(--ink)" }}>
