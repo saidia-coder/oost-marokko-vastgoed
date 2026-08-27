@@ -166,7 +166,7 @@ export default function PropertyGrid({ properties, regions, fetchError }) {
     <div style={{ minHeight: "100vh" }}>
       <header style={{ background: "var(--sand-deep)", padding: "18px 24px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "12px", borderBottom: "1px solid var(--line)" }}>
         <div style={{ fontFamily: "'Fraunces', serif", fontSize: "20px", fontWeight: 700, color: "var(--ink)" }}>
-          Oost·Marokko <span style={{ color: "var(--orange)" }}>Vastgoed</span>
+          Marokko <span style={{ color: "var(--orange)" }}>Vastgoed</span>
         </div>
         <a
           href={`https://wa.me/${WHATSAPP_NUMBER}`}
@@ -181,10 +181,10 @@ export default function PropertyGrid({ properties, regions, fetchError }) {
       <section style={{ background: "var(--sand-deep)", padding: "56px 24px 40px" }}>
         <div style={{ maxWidth: "960px", margin: "0 auto" }}>
           <p style={{ fontFamily: "'IBM Plex Mono', monospace", fontSize: "12px", textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--orange)", marginBottom: "14px" }}>
-            Kust tot binnenland · Oost-Marokko
+            Jouw droom, jouw plek, Marokko
           </p>
           <h1 style={{ fontFamily: "'Fraunces', serif", fontSize: "44px", fontWeight: 600, lineHeight: 1.1, margin: "0 0 16px", maxWidth: "620px", color: "var(--ink)" }}>
-            Vastgoed langs de corridor Saidia — Berkane — Oujda
+            Where dreams find a home
           </h1>
 
           {fetchError && (
