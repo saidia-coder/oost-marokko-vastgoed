@@ -182,9 +182,9 @@ export default function PropertyGrid({ properties, regions, fetchError }) {
           href={`https://wa.me/${WHATSAPP_NUMBER}`}
           target="_blank"
           rel="noopener noreferrer"
-          style={{ display: "flex", alignItems: "center", gap: "6px", fontSize: "13px", fontWeight: 600, color: "var(--orange)", textDecoration: "none" }}
+          style={{ display: "flex", alignItems: "center", gap: "8px", fontSize: "17px", fontWeight: 700, color: "var(--orange)", textDecoration: "none" }}
         >
-          <WhatsAppIcon size={15} /> +{WHATSAPP_NUMBER.replace(/(\d{2})(\d{1})(\d{8})/, "$1 $2 $3")}
+          <WhatsAppIcon size={22} /> +{WHATSAPP_NUMBER.replace(/(\d{2})(\d{1})(\d{8})/, "$1 $2 $3")}
         </a>
       </header>
 
